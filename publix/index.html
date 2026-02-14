@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail Calypsso</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>🛡️ PORTAIL CALYPSSO</h1>
+                <p>Système National d'Information Policière</p>
+            </div>
+            <div class="user-info">
+                <span id="agent-name">Agent connecté</span>
+                <button class="logout-btn">Déconnexion</button>
+            </div>
+        </header>
+
+        <nav class="fichiers-nav">
+            <button class="fichier-btn active" data-fichier="fpr">FPR</button>
+            <button class="fichier-btn" data-fichier="snpc">SNPC</button>
+            <button class="fichier-btn" data-fichier="siv">SIV</button>
+            <button class="fichier-btn" data-fichier="taj">TAJ</button>
+            <button class="fichier-btn" data-fichier="fva">FVA</button>
+            <button class="fichier-btn" data-fichier="foves">FOVeS</button>
+        </nav>
+
+        <main class="main-content">
+            <!-- FPR - Fichier des Personnes Recherchées -->
+            <section id="fpr" class="fichier-section active">
+                <h2>📋 Fichier des Personnes Recherchées (FPR)</h2>
+                <p class="description">Personnes majeures ou mineures faisant l'objet de recherches sur l'ensemble du territoire national</p>
+                
+                <div class="search-form">
+                    <input type="text" id="fpr-nom" placeholder="Nom">
+                    <input type="text" id="fpr-prenom" placeholder="Prénom">
+                    <input type="date" id="fpr-date" placeholder="Date de naissance">
+                    <button onclick="searchFPR()">🔍 Rechercher</button>
+                    <button onclick="showAddForm('fpr')">➕ Ajouter</button>
+                </div>
+
+                <div id="fpr-results" class="results"></div>
+            </section>
+
+            <!-- SNPC - Système National du Permis de Conduire -->
+            <section id="snpc" class="fichier-section">
+                <h2>🚗 Système National du Permis de Conduire (SNPC)</h2>
+                <p class="description">Vérifier si une personne est titulaire d'un permis de conduire valable</p>
+                
+                <div class="search-form">
+                    <input type="text" id="snpc-nom" placeholder="Nom">
+                    <input type="text" id="snpc-prenom" placeholder="Prénom">
+                    <input type="date" id="snpc-date" placeholder="Date de naissance">
+                    <button onclick="searchSNPC()">🔍 Rechercher</button>
+                    <button onclick="showAddForm('snpc')">➕ Ajouter</button>
+                </div>
+
+                <div id="snpc-results" class="results"></div>
+            </section>
+
+            <!-- SIV - Système d'Immatriculation des Véhicules -->
+            <section id="siv" class="fichier-section">
+                <h2>🚙 Système d'Immatriculation des Véhicules (SIV)</h2>
+                <p class="description">Identifier un véhicule par sa plaque, marque ou modèle</p>
+                
+                <div class="search-form">
+                    <input type="text" id="siv-marque" placeholder="Marque">
+                    <input type="text" id="siv-modele" placeholder="Modèle">
+                    <input type="text" id="siv-plaque" placeholder="Plaque d'immatriculation">
+                    <button onclick="searchSIV()">🔍 Rechercher</button>
+                    <button onclick="showAddForm('siv')">➕ Ajouter</button>
+                </div>
+
+                <div id="siv-results" class="results"></div>
+            </section>
+
+            <!-- TAJ - Traitement d'Antécédents Judiciaires -->
+            <section id="taj" class="fichier-section">
+                <h2>⚖️ Traitement d'Antécédents Judiciaires (TAJ)</h2>
+                <p class="description">Données des procédures de police nationale, gendarmerie et douanes</p>
+                
+                <div class="search-form">
+                    <input type="text" id="taj-nom" placeholder="Nom">
+                    <input type="text" id="taj-prenom" placeholder="Prénom">
+                    <input type="date" id="taj-date" placeholder="Date de naissance">
+                    <button onclick="searchTAJ()">🔍 Rechercher</button>
+                    <button onclick="showAddForm('taj')">➕ Ajouter</button>
+                </div>
+
+                <div id="taj-results" class="results"></div>
+            </section>
+
+            <!-- FVA - Fichier des Véhicules Assurés -->
+            <section id="fva" class="fichier-section">
+                <h2>📄 Fichier des Véhicules Assurés (FVA)</h2>
+                <p class="description">Vérifier la situation d'assurance d'un véhicule immatriculé en France</p>
+                
+                <div class="search-form">
+                    <input type="text" id="fva-plaque" placeholder="Plaque d'immatriculation">
+                    <button onclick="searchFVA()">🔍 Rechercher</button>
+                </div>
+
+                <div id="fva-results" class="results"></div>
+            </section>
+
+            <!-- FOVeS - Fichier des Objets et des Véhicules Signalés -->
+            <section id="foves" class="fichier-section">
+                <h2>🚨 Fichier des Objets et des Véhicules Signalés (FOVeS)</h2>
+                <p class="description">Véhicules, bateaux, aéronefs et objets volés, perdus ou sous surveillance</p>
+                
+                <div class="search-form">
+                    <select id="foves-type">
+                        <option value="">Type d'objet</option>
+                        <option value="vehicule">Véhicule</option>
+                        <option value="bateau">Bateau</option>
+                        <option value="aeronef">Aéronef</option>
+                        <option value="objet">Objet</option>
+                    </select>
+                    <input type="text" id="foves-marque" placeholder="Marque">
+                    <input type="text" id="foves-modele" placeholder="Modèle">
+                    <input type="text" id="foves-plaque" placeholder="Plaque">
+                    <button onclick="searchFOVeS()">🔍 Rechercher</button>
+                    <button onclick="showAddForm('foves')">➕ Ajouter</button>
+                </div>
+
+                <div id="foves-results" class="results"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal pour ajout de données -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddModal()">&times;</span>
+            <h2>Ajouter une entrée</h2>
+            <div id="addFormContainer"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
